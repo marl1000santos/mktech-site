@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MKTECH Automação Residencial</title>
+<meta name="description" content="Projetos de automação residencial sob medida: iluminação, climatização, cortinas, áudio e segurança integrados em uma experiência simples de usar.">
+<meta property="og:title" content="MKTECH Automação Residencial">
+<meta property="og:description" content="Automação integrada à arquitetura. Equipamento desenvolvido, instalado e acompanhado pela MKTECH.">
+<meta property="og:image" content="img/hero.jpg">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600&display=swap">
+<style>
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+/* Layout: editorial noturno de alto padrão. Hairlines finas, tipografia leve e grande, laranja usado só como luz (um ponto de calor por vista) */
+:root {
+  --bg: #060b15;
+  --bg2: #0a121f;
+  --ink: #f3eee6;
+  --muted: #8a96aa;
+  --faint: #566277;
+  --line: rgba(255,255,255,.09);
+  --accent: #f28a2b;
+  --accent-soft: rgba(242,138,43,.14);
+  --font: "Manrope", "Helvetica Neue", Arial, sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font); font-weight: 400; font-size: 17px; line-height: 1.7; -webkit-font-smoothing: antialiased; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 40; background: var(--bg); }
+a { color: inherit; }
+h1, h2, h3 { font-family: var(--font); font-weight: 300; line-height: 1.08; letter-spacing: -.025em; margin: 0; text-wrap: balance; }
+p { margin: 0; }
+:focus-visible { outline: 1px solid var(--accent); outline-offset: 4px; }
+.wrap { max-width: 1180px; margin: 0 auto; }
+.full { margin-inline: calc(50% - 50vw); padding-inline: calc(50vw - 50%); }
+section { padding-block: clamp(72px, 11vw, 150px); }
+.label { font-size: 11.5px; letter-spacing: .26em; text-transform: uppercase; color: var(--accent); font-weight: 500; display: flex; align-items: center; gap: 14px; margin-bottom: 28px; }
+.label::before { content: ""; width: 34px; height: 1px; background: var(--accent); }
+h2 { font-size: clamp(30px, 5vw, 58px); max-width: 17ch; }
+h2 i { font-style: normal; color: var(--muted); }
+.lead { color: var(--muted); font-weight: 300; font-size: clamp(17px, 1.6vw, 20px); max-width: 52ch; margin-top: 26px; }
+.btn { display: inline-flex; align-items: center; gap: 14px; font-family: var(--font); font-size: 12.5px; letter-spacing: .18em; text-transform: uppercase; font-weight: 600; text-decoration: none; padding: 20px 34px; background: var(--accent); color: #140900; border-radius: 0; transition: background .25s, gap .25s; }
+.btn:hover { background: #ffa04d; gap: 20px; }
+.btn.line { background: transparent; color: var(--ink); border: 1px solid rgba(255,255,255,.22); }
+.btn.line:hover { border-color: var(--accent); background: transparent; color: var(--accent); }
+.btn.sm { padding: 13px 22px; font-size: 11px; }
+.tlink { font-size: 12px; letter-spacing: .18em; text-transform: uppercase; font-weight: 600; text-decoration: none; color: var(--accent); border-bottom: 1px solid transparent; padding-bottom: 4px; transition: border-color .2s; }
+.tlink:hover { border-color: var(--accent); }
+
+/* topo */
+header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30; background: rgba(6,11,21,.86); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
+.bar { max-width: 1180px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-block: 18px; }
+.logo { display: flex; align-items: center; gap: 14px; text-decoration: none; min-width: 0; }
+.logo svg { flex: none; }
+.logo b { font-weight: 600; font-size: 19px; letter-spacing: .22em; display: block; line-height: 1; }
+.logo small { display: block; font-size: 8.5px; letter-spacing: .34em; color: var(--muted); margin-top: 7px; text-transform: uppercase; white-space: nowrap; font-weight: 500; }
+nav { display: flex; align-items: center; gap: 34px; }
+nav a.l { text-decoration: none; color: var(--muted); font-size: 12px; letter-spacing: .16em; text-transform: uppercase; font-weight: 500; transition: color .2s; }
+nav a.l:hover { color: var(--ink); }
+@media (max-width: 960px) { nav a.l { display: none; } }
+
+/* hero */
+.hero { position: relative; overflow: hidden; padding-block: clamp(56px, 8vw, 110px) clamp(64px, 9vw, 120px); }
+.hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(32px, 6vw, 90px); align-items: center; }
+.hero-grid > * { min-width: 0; }
+.hero h1 { font-size: clamp(38px, 6.6vw, 84px); font-weight: 200; letter-spacing: -.035em; line-height: 1.02; }
+.hero h1 b { font-weight: 300; color: var(--accent); }
+.hero .lead { margin-top: 34px; }
+.hero .row { display: flex; flex-wrap: wrap; align-items: center; gap: 18px 28px; margin-top: 46px; }
+.hero .row small { color: var(--faint); font-size: 13px; max-width: 24ch; line-height: 1.5; }
+.facts { display: flex; flex-wrap: wrap; gap: 14px 44px; margin-top: 68px; padding-top: 28px; border-top: 1px solid var(--line); list-style: none; padding-left: 0; }
+.facts li { font-size: 11.5px; letter-spacing: .22em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+.facts li span { color: var(--accent); margin-right: 12px; }
+.night { position: relative; aspect-ratio: 4 / 5; max-height: 620px; width: 100%; border: 1px solid var(--line); background: radial-gradient(120% 70% at 50% 100%, rgba(242,138,43,.20), transparent 60%), linear-gradient(180deg, #08111f 0%, #0b1627 100%); overflow: hidden; }
+.night svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.night figcaption { position: absolute; left: 22px; bottom: 20px; font-size: 10.5px; letter-spacing: .24em; text-transform: uppercase; color: var(--muted); }
+.night figcaption b { color: var(--accent); font-weight: 500; }
+.night { margin: 0; }
+@media (max-width: 900px) { .hero-grid { grid-template-columns: 1fr; } .night { aspect-ratio: 5 / 4; } }
+
+/* etapa */
+.stage { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 72px; border-top: 1px solid var(--line); }
+.stage > div { padding: 40px 36px 8px 0; display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+.stage > div + div { padding-left: 36px; border-left: 1px solid var(--line); }
+.stage .k { font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: var(--faint); font-weight: 500; }
+.stage h3 { font-size: 26px; }
+.stage p { color: var(--muted); font-weight: 300; font-size: 16px; }
+.stage .tlink { align-self: flex-start; margin-top: 10px; }
+@media (max-width: 860px) { .stage { grid-template-columns: 1fr; } .stage > div, .stage > div + div { padding: 34px 0; border-left: 0; border-bottom: 1px solid var(--line); } }
+
+/* problema */
+.problem { background: var(--bg2); border-block: 1px solid var(--line); }
+.prob-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(36px, 7vw, 110px); }
+.prob-grid > * { min-width: 0; }
+.big { font-size: clamp(26px, 3.8vw, 46px); font-weight: 200; line-height: 1.18; letter-spacing: -.025em; color: var(--muted); }
+.big b { font-weight: 300; color: var(--ink); }
+.pts { display: grid; gap: 0; }
+.pts div { padding: 26px 0; border-top: 1px solid var(--line); display: grid; grid-template-columns: 150px 1fr; gap: 24px; }
+.pts div:last-child { border-bottom: 1px solid var(--line); }
+.pts h3 { font-size: 15px; font-weight: 600; letter-spacing: .02em; }
+.pts p { color: var(--muted); font-weight: 300; font-size: 16px; }
+@media (max-width: 860px) { .prob-grid { grid-template-columns: 1fr; } .pts div { grid-template-columns: 1fr; gap: 6px; } }
+
+/* cenas */
+.cena { display: grid; grid-template-columns: 90px 1.1fr 1.4fr 1fr; gap: 28px; align-items: baseline; padding: 38px 0; border-top: 1px solid var(--line); transition: background .3s; }
+.cena:last-of-type { border-bottom: 1px solid var(--line); }
+.cena > * { min-width: 0; }
+.cena .t { font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: var(--accent); font-weight: 500; }
+.cena h3 { font-size: clamp(28px, 3.6vw, 44px); font-weight: 200; }
+.cena p { color: var(--muted); font-weight: 300; font-size: 16px; }
+.cena ul { list-style: none; margin: 0; padding: 0; color: var(--faint); font-size: 14px; display: grid; gap: 4px; }
+.cena:hover ul { color: var(--muted); }
+.scenes { margin-top: 64px; }
+.after { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 22px 40px; margin-top: 56px; }
+.after p { color: var(--muted); font-weight: 300; font-size: 19px; max-width: 34ch; }
+@media (max-width: 960px) { .cena { grid-template-columns: 1fr; gap: 10px; padding: 32px 0; } }
+
+/* soluções */
+.sols { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 72px; border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+.sols article { padding: 44px 36px 48px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); min-width: 0; transition: background .3s; }
+.sols article:hover { background: rgba(255,255,255,.02); }
+.sols svg { width: 30px; height: 30px; stroke: var(--accent); fill: none; stroke-width: 1.1; stroke-linecap: round; stroke-linejoin: round; display: block; margin-bottom: 34px; }
+.sols h3 { font-size: 24px; margin-bottom: 14px; }
+.sols p { color: var(--muted); font-weight: 300; font-size: 15.5px; }
+@media (max-width: 960px) { .sols { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .sols { grid-template-columns: 1fr; } .sols article { padding: 34px 24px; } }
+.base { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin-top: 90px; }
+.base > div { padding: 8px 48px 8px 0; min-width: 0; }
+.base > div + div { padding: 8px 0 8px 48px; border-left: 1px solid var(--line); }
+.base h3 { font-size: 30px; margin: 10px 0 16px; }
+.base p { color: var(--muted); font-weight: 300; max-width: 42ch; }
+@media (max-width: 760px) { .base { grid-template-columns: 1fr; gap: 40px; } .base > div, .base > div + div { padding: 0; border: 0; } }
+
+/* galeria */
+.gal { display: grid; grid-template-columns: repeat(6, 1fr); grid-auto-rows: clamp(150px, 20vw, 250px); gap: 14px; margin-top: 64px; }
+.gal figure { margin: 0; position: relative; overflow: hidden; border: 1px solid var(--line); min-width: 0; background: var(--bg2); }
+.gal figure:nth-child(1) { grid-column: span 4; grid-row: span 2; }
+.gal figure:nth-child(2) { grid-column: span 2; }
+.gal figure:nth-child(3) { grid-column: span 2; }
+.gal figure:nth-child(4) { grid-column: span 3; }
+.gal figure:nth-child(5) { grid-column: span 3; }
+.gal svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.gal figcaption { position: absolute; left: 20px; bottom: 18px; right: 20px; }
+.gal figcaption b { display: block; font-weight: 500; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: var(--accent); }
+.gal figcaption span { display: block; font-size: 14px; color: var(--muted); font-weight: 300; margin-top: 3px; }
+@media (max-width: 760px) { .gal { grid-template-columns: 1fr 1fr; } .gal figure:nth-child(n) { grid-column: span 1; grid-row: span 1; } .gal figure:nth-child(1) { grid-column: span 2; } }
+
+/* processo */
+.steps { list-style: none; margin: 72px 0 0; padding: 0; display: grid; grid-template-columns: repeat(6, 1fr); border-top: 1px solid var(--line); }
+.steps li { padding: 0 22px 0 0; min-width: 0; position: relative; }
+.steps li::before { content: ""; position: absolute; top: -4px; left: 0; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+.steps .n { display: block; padding-top: 30px; font-size: 11px; letter-spacing: .24em; color: var(--faint); font-weight: 500; }
+.steps h3 { font-size: 22px; margin: 10px 0 12px; }
+.steps p { color: var(--muted); font-weight: 300; font-size: 14.5px; line-height: 1.6; }
+.note { color: var(--faint); font-size: 14px; margin-top: 56px; max-width: 70ch; font-weight: 300; }
+@media (max-width: 1000px) { .steps { grid-template-columns: repeat(3, 1fr); row-gap: 56px; } }
+@media (max-width: 600px) { .steps { grid-template-columns: 1fr 1fr; } }
+
+/* diferenciais */
+.why-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(36px, 7vw, 110px); }
+.why-grid > * { min-width: 0; }
+.why { list-style: none; margin: 0; padding: 0; counter-reset: w; }
+.why li { counter-increment: w; display: grid; grid-template-columns: 44px 1fr; padding: 30px 0; border-top: 1px solid var(--line); }
+.why li:last-child { border-bottom: 1px solid var(--line); }
+.why li::before { content: counter(w, decimal-leading-zero); font-size: 11px; letter-spacing: .2em; color: var(--accent); font-weight: 500; padding-top: 8px; }
+.why h3 { font-size: 24px; margin-bottom: 8px; }
+.why p { color: var(--muted); font-weight: 300; font-size: 15.5px; max-width: 46ch; }
+@media (max-width: 860px) { .why-grid { grid-template-columns: 1fr; } }
+
+/* arquitetos */
+.arq { background: var(--bg2); border-block: 1px solid var(--line); }
+.arq ol { list-style: none; margin: 0; padding: 0; }
+.arq li { display: flex; gap: 26px; padding: 22px 0; border-top: 1px solid var(--line); color: var(--ink); font-weight: 300; font-size: 18px; }
+.arq li:last-child { border-bottom: 1px solid var(--line); }
+.arq li span { color: var(--accent); font-size: 11px; letter-spacing: .2em; font-weight: 500; padding-top: 7px; }
+.arq .btn { margin-top: 44px; }
+
+/* faq */
+.faq { margin-top: 64px; border-top: 1px solid var(--line); max-width: 900px; }
+details { border-bottom: 1px solid var(--line); }
+summary { list-style: none; cursor: pointer; padding: 30px 56px 30px 0; font-size: clamp(18px, 2vw, 23px); font-weight: 300; letter-spacing: -.01em; position: relative; transition: color .2s; }
+summary:hover { color: var(--accent); }
+summary::-webkit-details-marker { display: none; }
+summary::before, summary::after { content: ""; position: absolute; right: 6px; top: 50%; width: 16px; height: 1px; background: var(--accent); transition: transform .3s; }
+summary::after { transform: rotate(90deg); }
+details[open] summary::after { transform: rotate(0deg); }
+details p { color: var(--muted); font-weight: 300; padding: 0 56px 32px 0; max-width: 62ch; font-size: 16.5px; }
+
+/* cta */
+.final { position: relative; overflow: hidden; text-align: center; padding-block: clamp(90px, 14vw, 190px); border-top: 1px solid var(--line); background: radial-gradient(60% 80% at 50% 120%, rgba(242,138,43,.22), transparent 70%), var(--bg); }
+.final .label { justify-content: center; }
+.final .label::before { display: none; }
+.final h2 { max-width: 18ch; margin-inline: auto; font-weight: 200; font-size: clamp(34px, 6vw, 72px); }
+.final .lead { margin-inline: auto; }
+.final .opts { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 36px; margin: 38px 0 0; padding: 0; list-style: none; font-size: 11.5px; letter-spacing: .22em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+.final .btn { margin-top: 54px; }
+
+footer { border-top: 1px solid var(--line); }
+.foot { max-width: 1180px; margin: 0 auto; padding-block: 64px 40px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; }
+.foot > * { min-width: 0; }
+.foot p { color: var(--muted); font-weight: 300; font-size: 15px; max-width: 36ch; margin-top: 22px; }
+.foot nav { flex-wrap: wrap; gap: 16px 30px; justify-content: flex-end; align-self: start; }
+.foot nav a.l { display: inline; }
+.copy { max-width: 1180px; margin: 0 auto; padding-block: 26px 40px; border-top: 1px solid var(--line); font-size: 12px; letter-spacing: .12em; color: var(--faint); }
+@media (max-width: 760px) { .foot { grid-template-columns: 1fr; } .foot nav { justify-content: flex-start; } footer nav a.l { display: inline; } }
+
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+
+.night img, .gal img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1.2s ease; }
+.gal figure:hover img { transform: scale(1.03); }
+.gal figure::after, .night::after { content: ""; position: absolute; inset: auto 0 0 0; height: 55%; background: linear-gradient(180deg, transparent, rgba(6,11,21,.88)); pointer-events: none; }
+.night::after { height: 30%; }
+.gal figcaption, .night figcaption { z-index: 2; }
+.gal figcaption span { color: #b7c0cf; }
+.final { text-align: left; background: var(--bg); }
+.final .bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 85% 50%; }
+.final::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(90deg, rgba(6,11,21,.96) 0%, rgba(6,11,21,.82) 42%, rgba(6,11,21,.15) 100%); }
+.final-in { position: relative; z-index: 2; }
+.final .label { justify-content: flex-start; }
+.final .label::before { display: block; }
+.final h2 { margin-inline: 0; max-width: 15ch; }
+.final .lead { margin-inline: 0; }
+.final .opts { justify-content: flex-start; }
+.final-in > * { max-width: 560px; }
+.final-in > h2 { max-width: 15ch; }
+@media (max-width: 760px) { .final::before { background: linear-gradient(180deg, rgba(6,11,21,.9), rgba(6,11,21,.78)); } .final .bg { object-position: 80% 50%; } }
+@media (prefers-reduced-motion: reduce) { .gal img { transition: none; } }
+</style>
+
+</head>
+<body>
+<header class="full">
+  <div class="bar">
+    <a class="logo" href="#top" aria-label="MKTECH Automação Residencial">
+      <svg width="38" height="38" viewBox="0 0 40 40" aria-hidden="true"><rect x=".75" y=".75" width="38.5" height="38.5" fill="none" stroke="#f28a2b" stroke-width="1.2"/><path d="M10 29V11l10 11 10-11v18" fill="none" stroke="#f28a2b" stroke-width="2" stroke-linejoin="miter"/></svg>
+      <span><b>MKTECH</b><small>Automação Residencial</small></span>
+    </a>
+    <nav aria-label="Principal">
+      <a class="l" href="#experiencias">Experiências</a>
+      <a class="l" href="#solucoes">Soluções</a>
+      <a class="l" href="#como-funciona">Como funciona</a>
+      <a class="l" href="#arquitetos">Arquitetos</a>
+      <a class="l" href="#duvidas">Dúvidas</a>
+      <a class="btn sm" data-wa="Olá! Vim pelo site da MKTECH e gostaria de avaliar um projeto de automação residencial." href="#">Avaliar projeto</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero full">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="label">Integração e automação residencial</p>
+        <h1>Automação integrada à arquitetura. <b>Conforto em cada gesto.</b></h1>
+        <p class="lead">Projetamos casas intuitivas. Iluminação, climatização, cortinas, áudio e segurança trabalham juntos, em uma experiência simples de usar. Equipamento desenvolvido, instalado e acompanhado pela MKTECH.</p>
+        <div class="row">
+          <a class="btn" data-wa="Olá! Vim pelo site da MKTECH e gostaria de solicitar uma avaliação inicial para meu projeto de automação residencial." href="#">Avaliar meu projeto <span aria-hidden="true">→</span></a>
+          <small>Atendimento direto com a equipe comercial pelo WhatsApp.</small>
+        </div>
+        <ul class="facts">
+          <li><span>01</span>Projeto sob medida</li>
+          <li><span>02</span>Integração com a arquitetura</li>
+          <li><span>03</span>Suporte após a entrega</li>
+        </ul>
+      </div>
+      <figure class="night">
+        <img src="img/hero.jpg" alt="Residência contemporânea à noite refletida na piscina, com iluminação quente integrada" loading="eager" decoding="async" style="object-position:50% 50%">
+        <figcaption><b>Cena</b> &nbsp; Cheguei</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <section id="experiencias" class="wrap" style="padding-top:0">
+    <p class="label">Comece pelo seu momento</p>
+    <h2>Em que etapa está o seu projeto?</h2>
+    <p class="lead">Uma conversa inicial mostra o que precisa ser decidido agora e o que pode entrar depois.</p>
+    <div class="stage">
+      <div>
+        <span class="k">Estou projetando ou construindo</span>
+        <h3>Prepare a casa no momento certo.</h3>
+        <p>Planeje infraestrutura, cabeamento e pontos de automação antes dos acabamentos. Menos retrabalho e a possibilidade de implantar por etapas.</p>
+        <a class="tlink" data-wa="Olá! Vim pelo site da MKTECH. Meu imóvel está em fase de projeto, obra ou reforma e quero entender como prepará-lo para automação." href="#">Preparar meu imóvel →</a>
+      </div>
+      <div>
+        <span class="k">Meu imóvel já está pronto</span>
+        <h3>Evolua a rotina sem perder a identidade.</h3>
+        <p>Avaliamos soluções cabeadas, sem fio ou híbridas para integrar os ambientes com a menor intervenção possível.</p>
+        <a class="tlink" data-wa="Olá! Vim pelo site da MKTECH. Meu imóvel já está pronto e quero conhecer as possibilidades de automação residencial." href="#">Automatizar meu imóvel →</a>
+      </div>
+      <div>
+        <span class="k">Sou profissional do setor</span>
+        <h3>Tecnologia que respeita o projeto.</h3>
+        <p>Apoio a arquitetos, engenheiros e designers, da definição técnica à documentação e à entrega da obra.</p>
+        <a class="tlink" data-wa="Olá! Vim pelo site da MKTECH. Sou arquiteto(a), engenheiro(a) ou designer e gostaria de conversar sobre um projeto ou parceria." href="#">Conversar sobre um projeto →</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="problem full">
+    <section class="wrap">
+      <div class="prob-grid">
+        <div>
+          <p class="label">O problema</p>
+          <p class="big">Não falta tecnologia nas casas. <b>Falta ela funcionar como um todo.</b></p>
+        </div>
+        <div class="pts">
+          <div><h3>Menos controles</h3><p>Luz, clima, cortinas, áudio e segurança coordenados, em vez de sistemas isolados e vários aplicativos.</p></div>
+          <div><h3>Menos improviso</h3><p>Decisões técnicas tomadas junto com a arquitetura, a obra e a rotina de quem vai morar.</p></div>
+          <div><h3>Mais simplicidade</h3><p>Interruptor, aplicativo, voz, sensores e cenas escolhidos para cada situação.</p></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <section class="wrap">
+    <p class="label">Automação na prática</p>
+    <h2>Uma cena. Vários sistemas. <i>O ambiente pronto para o momento.</i></h2>
+    <div class="scenes">
+      <div class="cena"><span class="t">Ao chegar</span><h3>Cheguei</h3><p>A casa recebe você com os ambientes essenciais prontos.</p><ul><li>Iluminação ajustada</li><li>Climatização conforme a necessidade</li><li>Áudio opcional</li></ul></div>
+      <div class="cena"><span class="t">Para desacelerar</span><h3>Relaxar</h3><p>Luz, temperatura e som criam um clima mais confortável com um toque.</p><ul><li>Luz indireta</li><li>Temperatura agradável</li><li>Playlist ou silêncio</li></ul></div>
+      <div class="cena"><span class="t">Hora do filme</span><h3>Cinema</h3><p>Os sistemas se coordenam para preparar a sessão.</p><ul><li>Cortinas fechadas</li><li>Iluminação reduzida</li><li>Áudio e vídeo ligados</li></ul></div>
+      <div class="cena"><span class="t">Fim do dia</span><h3>Boa noite</h3><p>A rotina noturna fica simples e a casa assume o que era repetitivo.</p><ul><li>Luzes desligadas</li><li>Cortinas fechadas</li><li>Portas e alarme conferidos</li></ul></div>
+    </div>
+    <div class="after">
+      <p>Quer saber quais cenas fazem sentido para a sua rotina?</p>
+      <a class="btn line" data-wa="Olá! Vim pelo site da MKTECH e gostaria de conhecer cenas de automação personalizadas para a minha rotina." href="#">Conversar com a equipe <span aria-hidden="true">→</span></a>
+    </div>
+  </section>
+
+  <section id="solucoes" class="wrap" style="padding-top:0">
+    <p class="label">Soluções integradas</p>
+    <h2>A casa inteira. <i>Uma experiência só.</i></h2>
+    <p class="lead">A combinação de sistemas e interfaces é definida conforme o projeto, a infraestrutura e a necessidade de cada cliente.</p>
+    <div class="sols">
+      <article><svg viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.7.7 1 1.5 1 2.5h6c0-1 .3-1.8 1-2.5A6 6 0 0 0 12 3z"/></svg><h3>Iluminação</h3><p>Cenas, sensores, horários e comandos para criar a atmosfera certa e eliminar tarefas repetitivas.</p></article>
+      <article><svg viewBox="0 0 24 24"><path d="M12 3v18M5 7l14 10M19 7L5 17"/></svg><h3>Climatização</h3><p>Controle por ambiente, rotinas e sensores para um conforto térmico mais simples e constante.</p></article>
+      <article><svg viewBox="0 0 24 24"><path d="M4 4h16M6 4v14M10 4v14M14 4v14M18 4v14M4 20h16"/></svg><h3>Cortinas e persianas</h3><p>Privacidade e luz natural integradas aos horários, aos ambientes e às cenas da casa.</p></article>
+      <article><svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4zM17 9a4 4 0 0 1 0 6M19.5 6.5a8 8 0 0 1 0 11"/></svg><h3>Áudio e vídeo</h3><p>Som multiambiente, home theater e entretenimento coordenados com a automação.</p></article>
+      <article><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3zM9 12l2 2 4-4"/></svg><h3>Segurança</h3><p>Câmeras, sensores, alarme e acesso planejados para dar mais visão e controle sobre o imóvel.</p></article>
+      <article><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><circle cx="5" cy="6" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="5" cy="18" r="2"/><circle cx="19" cy="18" r="2"/><path d="M9.5 10.5L6.5 7.5M14.5 10.5l3-3M9.5 13.5l-3 3M14.5 13.5l3 3"/></svg><h3>Automação integrada</h3><p>Aplicativo, voz e cenas conectando diferentes sistemas em um único controle.</p></article>
+    </div>
+    <div class="base">
+      <div><span class="k" style="font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);font-weight:500">A base invisível</span><h3>Projeto e pré-automação</h3><p>Infraestrutura, cabeamento e pontos técnicos planejados para executar agora e liberar novos recursos quando fizer sentido.</p></div>
+      <div><span class="k" style="font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);font-weight:500">A base invisível</span><h3>Rede e conectividade</h3><p>Cobertura e distribuição de rede dimensionadas para sustentar automação, entretenimento, trabalho e todos os dispositivos conectados.</p></div>
+    </div>
+    <div class="after">
+      <p>Descubra quais soluções fazem sentido para o seu imóvel.</p>
+      <a class="btn" data-wa="Olá! Vim pelo site da MKTECH e gostaria de entender quais soluções de automação fazem sentido para o meu imóvel." href="#">Avaliar possibilidades <span aria-hidden="true">→</span></a>
+    </div>
+  </section>
+
+  <section class="wrap" style="padding-top:0">
+    <p class="label">Tecnologia integrada ao espaço</p>
+    <h2>Presente na experiência. <i>Discreta no ambiente.</i></h2>
+    <p class="lead">A automação respeita materiais, iluminação, proporções e a intenção de cada ambiente.</p>
+    <div class="gal">
+      <figure>
+        <img src="img/integracao.jpg" alt="Sala integrada com pé-direito duplo e iluminação indireta" loading="eager" decoding="async" style="object-position:50% 60%">
+        <figcaption><b>Integração</b><span>Sistemas coordenados em uma única experiência</span></figcaption>
+      </figure>
+      <figure>
+        <img src="img/iluminacao.jpg" alt="Cozinha escura com fitas de LED sob os armários e na ilha" loading="eager" decoding="async" style="object-position:50% 50%">
+        <figcaption><b>Iluminação</b><span>Atmosferas para cada momento</span></figcaption>
+      </figure>
+      <figure>
+        <img src="img/interfaces.jpg" alt="Painel de comando em vidro preto com quatro indicadores em parede texturizada" loading="eager" decoding="async" style="object-position:50% 50%">
+        <figcaption><b>Interfaces</b><span>Controles discretos e intuitivos</span></figcaption>
+      </figure>
+      <figure>
+        <img src="img/conforto.jpg" alt="Suíte com cortinas em linho e iluminação indireta atrás da cabeceira" loading="eager" decoding="async" style="object-position:72% 60%">
+        <figcaption><b>Conforto</b><span>Cortinas e climatização integradas</span></figcaption>
+      </figure>
+      <figure>
+        <img src="img/entretenimento.jpg" alt="Home theater escuro com caixas embutidas e iluminação no piso" loading="eager" decoding="async" style="object-position:50% 55%">
+        <figcaption><b>Entretenimento</b><span>Áudio e vídeo integrados ao ambiente</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="como-funciona" class="wrap" style="padding-top:0">
+    <p class="label">Como funciona</p>
+    <h2>Do primeiro contato à casa pronta para a rotina.</h2>
+    <p class="lead">Um processo coordenado para reduzir improviso, preservar a arquitetura e entregar um sistema simples de usar.</p>
+    <ol class="steps">
+      <li><span class="n">01</span><h3>Diagnóstico</h3><p>Entendemos o imóvel, a fase da obra, a rotina e as prioridades.</p></li>
+      <li><span class="n">02</span><h3>Projeto</h3><p>Definimos sistemas, interfaces, infraestrutura e integrações por ambiente.</p></li>
+      <li><span class="n">03</span><h3>Preparação</h3><p>Coordenamos pontos técnicos e cabeamento junto com a obra.</p></li>
+      <li><span class="n">04</span><h3>Integração</h3><p>Instalamos, conectamos e configuramos equipamentos, sensores e cenas.</p></li>
+      <li><span class="n">05</span><h3>Entrega</h3><p>Testamos, documentamos e treinamos quem vai usar a casa.</p></li>
+      <li><span class="n">06</span><h3>Suporte</h3><p>Acompanhamos o uso depois da instalação, conforme a proposta.</p></li>
+    </ol>
+    <p class="note">Escopo, prazos, entregas, garantias e condições de suporte ficam definidos na proposta de cada projeto.</p>
+  </section>
+
+  <section class="wrap" style="padding-top:0">
+    <div class="why-grid">
+      <div>
+        <p class="label">Por que a MKTECH</p>
+        <h2>Quem desenvolve o equipamento <i>responde por ele.</i></h2>
+        <p class="lead">Método, cuidado com o acabamento e proximidade, para que a automação faça sentido antes, durante e depois da instalação.</p>
+        <p style="margin-top:44px"><a class="btn line" data-wa="Olá! Vim pelo site da MKTECH e gostaria de conversar sobre uma solução de automação sob medida para meu projeto." href="#">Falar sobre meu projeto <span aria-hidden="true">→</span></a></p>
+      </div>
+      <ol class="why">
+        <li><div><h3>Equipamentos próprios</h3><p>Desenvolvemos a tecnologia que instalamos, com controle sobre qualidade e evolução.</p></div></li>
+        <li><div><h3>Integração desde o projeto</h3><p>Arquitetura, infraestrutura e tecnologia analisadas como uma só experiência.</p></div></li>
+        <li><div><h3>Soluções sob medida</h3><p>Ambientes, comandos e cenas definidos pela rotina e pelas prioridades do cliente.</p></div></li>
+        <li><div><h3>Precisão na execução</h3><p>Projeto, instalação, configuração, testes e documentação em uma jornada única.</p></div></li>
+        <li><div><h3>Proximidade após a entrega</h3><p>Manual, treinamento e suporte para transformar recurso técnico em uso diário.</p></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <div class="arq full" id="arquitetos">
+    <section class="wrap">
+      <div class="why-grid">
+        <div>
+          <p class="label">Para arquitetos e especificadores</p>
+          <h2>Tecnologia que respeita a intenção do projeto.</h2>
+          <p class="lead">A MKTECH atua como parceira técnica para coordenar automação, infraestrutura e experiência, sem transformar o arquiteto em especialista em sistemas.</p>
+          <a class="btn" data-wa="Olá! Vim pelo site da MKTECH. Sou arquiteto(a), engenheiro(a) ou designer e gostaria de conversar sobre um projeto ou parceria." href="#">Conversar sobre um projeto <span aria-hidden="true">→</span></a>
+        </div>
+        <ol>
+          <li><span>01</span>Leitura do projeto e briefing técnico</li>
+          <li><span>02</span>Especificação e localização dos equipamentos</li>
+          <li><span>03</span>Informações para nichos, pontos e infraestrutura</li>
+          <li><span>04</span>Acompanhamento e registro de alterações relevantes</li>
+          <li><span>05</span>Testes, documentação e orientação na entrega</li>
+        </ol>
+      </div>
+    </section>
+  </div>
+
+  <section id="duvidas" class="wrap">
+    <p class="label">Dúvidas frequentes</p>
+    <h2>Clareza antes da primeira decisão.</h2>
+    <div class="faq">
+      <details open><summary>O melhor momento para automatizar é durante a obra?</summary><p>Projeto, obra e reforma são os melhores momentos para planejar infraestrutura e evitar intervenções futuras. Imóveis prontos também podem receber automação, com a solução definida depois de uma avaliação técnica.</p></details>
+      <details><summary>É possível automatizar um imóvel que já está pronto?</summary><p>Sim. Conforme a infraestrutura existente e o resultado esperado, o projeto pode combinar tecnologias cabeadas, sem fio ou híbridas para reduzir a intervenção no imóvel.</p></details>
+      <details><summary>A automação para de funcionar sem internet?</summary><p>Depende da arquitetura escolhida. Funções locais podem continuar operando sem internet em determinadas soluções, enquanto acesso remoto, voz e serviços em nuvem precisam de conexão. Essa definição faz parte do projeto técnico.</p></details>
+      <details><summary>Posso implantar a automação por etapas?</summary><p>Sim, quando a infraestrutura e as expansões são planejadas desde o início. A preparação e a integração podem acontecer em momentos diferentes, conforme o escopo aprovado.</p></details>
+      <details><summary>Como sei quais sistemas fazem sentido para minha casa?</summary><p>A avaliação inicial considera rotina, ambientes, fase do imóvel, prioridades e orçamento. Com isso, a equipe indica o que preparar, o que instalar agora e o que deixar para uma fase futura.</p></details>
+      <details><summary>O que acontece depois da instalação?</summary><p>A entrega inclui testes, configuração, orientação, manual e treinamento. Garantias, ajustes e condições de suporte são detalhados na proposta de cada projeto.</p></details>
+      <details><summary>O que devo enviar para começar a conversa?</summary><p>Informe se o imóvel está em projeto, obra, reforma ou pronto. Se tiver planta, projeto arquitetônico ou uma lista de ambientes e necessidades, a conversa fica bem mais objetiva.</p></details>
+    </div>
+  </section>
+
+  <div class="final full">
+    <img class="bg" src="img/cta.jpg" alt="Casa contemporânea ao entardecer com piscina iluminada" loading="lazy" decoding="async">
+    <div class="final-in wrap">
+    <p class="label">Avaliação inicial do projeto</p>
+    <h2>Conte em que etapa está o seu imóvel. A conversa começa por aí.</h2>
+    <p class="lead">Fale direto com a equipe comercial e compartilhe as primeiras informações pelo WhatsApp.</p>
+    <ul class="opts"><li>Fase do imóvel</li><li>Ambientes e prioridades</li><li>Planta, se tiver</li></ul>
+    <a class="btn" data-wa="Olá! Vim pelo site da MKTECH e gostaria de iniciar a avaliação do meu projeto. Posso compartilhar a fase do imóvel, os ambientes prioritários e a planta, se necessário." href="#">Avaliar meu projeto no WhatsApp <span aria-hidden="true">→</span></a>
+  </div>
+  </div>
+</main>
+
+<footer class="full">
+  <div class="foot">
+    <div>
+      <a class="logo" href="#top" aria-label="MKTECH Automação Residencial">
+        <svg width="38" height="38" viewBox="0 0 40 40" aria-hidden="true"><rect x=".75" y=".75" width="38.5" height="38.5" fill="none" stroke="#f28a2b" stroke-width="1.2"/><path d="M10 29V11l10 11 10-11v18" fill="none" stroke="#f28a2b" stroke-width="2" stroke-linejoin="miter"/></svg>
+        <span><b>MKTECH</b><small>Automação Residencial</small></span>
+      </a>
+      <p>Tecnologia integrada à arquitetura para transformar casas em ambientes intuitivos, confortáveis e simples de usar.</p>
+    </div>
+    <nav aria-label="Rodapé">
+      <a class="l" href="#experiencias">Experiências</a>
+      <a class="l" href="#solucoes">Soluções</a>
+      <a class="l" href="#como-funciona">Como funciona</a>
+      <a class="l" href="#arquitetos">Arquitetos</a>
+      <a class="l" href="#duvidas">Dúvidas</a>
+      <a class="btn sm" data-wa="Olá! Vim pelo site da MKTECH e gostaria de falar com a equipe sobre automação residencial." href="#">Falar no WhatsApp</a>
+    </nav>
+  </div>
+  <p class="copy">© 2026 MKTECH Automação Residencial. Todos os direitos reservados.</p>
+</footer>
+
+<script>
+// Troque pelo número real, só dígitos com DDI e DDD. Exemplo: 5534999999999
+var WHATSAPP = "55SEUNUMEROAQUI";
+document.querySelectorAll("[data-wa]").forEach(function (a) {
+  a.href = "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(a.getAttribute("data-wa"));
+  a.target = "_blank";
+  a.rel = "noopener";
+});
+</script>
+
+</body>
+</html>
