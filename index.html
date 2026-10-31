@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>document.documentElement.className+=" js"</script>
 <title>MKTECH Automação Residencial</title>
 <meta name="description" content="Projetos de automação residencial sob medida: iluminação, climatização, cortinas, áudio e segurança integrados em uma experiência simples de usar.">
 <meta property="og:title" content="MKTECH Automação Residencial">
@@ -207,7 +208,7 @@ footer { border-top: 1px solid var(--line); }
 .copy { max-width: 1180px; margin: 0 auto; padding-block: 26px 40px; border-top: 1px solid var(--line); font-size: 12px; letter-spacing: .12em; color: var(--faint); }
 @media (max-width: 760px) { .foot { grid-template-columns: 1fr; } .foot nav { justify-content: flex-start; } footer nav a.l { display: inline; } }
 
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+
 
 .night img, .gal img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1.2s ease; }
 .gal figure:hover img { transform: scale(1.03); }
@@ -227,12 +228,103 @@ footer { border-top: 1px solid var(--line); }
 .final-in > * { max-width: 560px; }
 .final-in > h2 { max-width: 15ch; }
 @media (max-width: 760px) { .final::before { background: linear-gradient(180deg, rgba(6,11,21,.9), rgba(6,11,21,.78)); } .final .bg { object-position: 80% 50%; } }
-@media (prefers-reduced-motion: reduce) { .gal img { transition: none; } }
+
+
+/* ---------- movimento ---------- */
+:root { --ease: cubic-bezier(.2,.7,.2,1); }
+@keyframes up { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: none; } }
+@keyframes kb { from { scale: 1.16; opacity: 0; } to { scale: 1; opacity: 1; } }
+@keyframes fadein { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+@keyframes ping { 0% { transform: scale(.5); opacity: .9; } 100% { transform: scale(1.9); opacity: 0; } }
+@keyframes drift { from { scale: 1.08; } to { scale: 1; } }
+
+.progress { position: absolute; left: 0; bottom: -1px; height: 1px; width: 100%; background: var(--accent); transform-origin: 0 50%; transform: scaleX(var(--p, 0)); z-index: 2; }
+header .bar { transition: padding .4s var(--ease); }
+header.scrolled .bar { padding-block: 10px; }
+header { transition: background .4s; }
+header.scrolled { background: rgba(6,11,21,.94); }
+nav a.l { position: relative; padding-block: 6px; }
+nav a.l::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--accent); transform: scaleX(0); transform-origin: 0 50%; transition: transform .4s var(--ease); }
+nav a.l:hover::after, nav a.l.on::after { transform: scaleX(1); }
+nav a.l.on { color: var(--ink); }
+
+.hero .label, .hero h1, .hero .lead, .hero .row, .hero .facts { animation: up 1.1s var(--ease) both; }
+.hero h1 { animation-delay: .12s; }
+.hero .lead { animation-delay: .26s; }
+.hero .row { animation-delay: .4s; }
+.hero .facts { animation-delay: .54s; }
+.night img { inset: -6% 0; height: 112%; animation: kb 2.6s var(--ease) both; translate: 0 var(--py, 0%); will-change: translate; }
+.night { animation: up 1.2s var(--ease) .15s both; }
+.gal img { inset: -6% 0; height: 112%; translate: 0 var(--py, 0%); will-change: translate; }
+.gal figure:hover img { transform: scale(1.05); }
+.gal figcaption { transition: transform .6s var(--ease); }
+.gal figure:hover figcaption { transform: translateY(-8px); }
+.final .bg { inset: -10% 0; height: 120%; translate: 0 var(--py, 0%); }
+
+.js .reveal { opacity: 0; transform: translateY(30px); transition: opacity 1s var(--ease), transform 1s var(--ease), background .3s; transition-delay: var(--d, 0s); }
+.js .reveal.in { opacity: 1; transform: none; }
+
+.stage > div, .sols article { transition: background .3s; }
+.stage > div:hover, .sols article:hover { background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(242,138,43,.09), transparent 65%); }
+.btn { position: relative; overflow: hidden; }
+.btn::after { content: ""; position: absolute; inset: 0; background: linear-gradient(100deg, transparent 30%, rgba(255,255,255,.35) 50%, transparent 70%); transform: translateX(-120%); }
+.btn:hover::after { transform: translateX(120%); transition: transform .9s var(--ease); }
+.btn.line::after { display: none; }
+.sols svg { transition: transform .5s var(--ease); }
+.sols article:hover svg { transform: translateY(-4px) scale(1.12); }
+details[open] p { animation: fadein .5s var(--ease) both; }
+
+/* cenas interativas */
+.scenes-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 6vw, 90px); margin-top: 64px; align-items: start; }
+.scenes-wrap > * { min-width: 0; }
+.scn-list { border-bottom: 1px solid var(--line); }
+.scn { position: relative; padding: 30px 0; border-top: 1px solid var(--line); cursor: pointer; }
+.scn:focus-visible { outline: 1px solid var(--accent); outline-offset: -1px; }
+.scn .t { display: block; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: var(--faint); font-weight: 500; margin-bottom: 10px; transition: color .4s; }
+.scn h3 { font-size: clamp(28px, 3.6vw, 46px); font-weight: 200; color: var(--faint); transition: color .5s, transform .6s var(--ease); }
+.scn:hover h3 { color: var(--muted); transform: translateX(6px); }
+.scn.on h3 { color: var(--ink); transform: translateX(10px); }
+.scn.on .t { color: var(--accent); }
+.scn .more { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .7s var(--ease); }
+.scn.on .more { grid-template-rows: 1fr; }
+.scn .more > div { overflow: hidden; min-height: 0; padding-left: 10px; }
+.scn .more p { color: var(--muted); font-weight: 300; font-size: 16px; max-width: 42ch; margin-top: 18px; }
+.scn .more ul { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 18px 0 2px; padding: 0; }
+.scn .more li { border: 1px solid var(--line); border-radius: 99px; padding: 6px 14px; font-size: 12.5px; letter-spacing: .05em; color: var(--muted); }
+.scn .pbar { position: absolute; left: 0; top: -1px; height: 1px; width: 0; background: var(--accent); }
+.scenes-wrap.manual .scn.on .pbar { width: 100%; }
+.scenes-wrap.auto .scn.on .pbar { width: 100%; transition: width 6s linear; }
+.preview { position: sticky; top: 110px; margin: 0; aspect-ratio: 4 / 5; max-height: 680px; width: 100%; overflow: hidden; border: 1px solid var(--line); background: var(--bg2); }
+.preview img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.2s var(--ease); }
+.preview img.on { opacity: 1; animation: drift 7s var(--ease) both; }
+.preview::after { content: ""; position: absolute; inset: auto 0 0 0; height: 30%; background: linear-gradient(180deg, transparent, rgba(6,11,21,.88)); pointer-events: none; }
+.preview figcaption { position: absolute; left: 22px; bottom: 20px; z-index: 2; font-size: 10.5px; letter-spacing: .24em; text-transform: uppercase; color: var(--muted); }
+.preview figcaption b { color: var(--accent); font-weight: 500; }
+@media (max-width: 860px) { .scenes-wrap { grid-template-columns: 1fr; } .preview { order: -1; position: relative; top: 0; aspect-ratio: 4 / 3; } }
+
+/* hotspots */
+.hint { position: absolute; z-index: 3; top: 16px; left: 18px; font-size: 10.5px; letter-spacing: .24em; text-transform: uppercase; color: var(--ink); background: rgba(6,11,21,.7); border: 1px solid var(--line); padding: 7px 12px; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+.hs { position: absolute; z-index: 3; width: 30px; height: 30px; margin: -15px 0 0 -15px; padding: 0; border: 0; background: none; cursor: pointer; }
+.hs span { position: absolute; inset: 9px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px rgba(242,138,43,.28); }
+.hs span::after { content: ""; position: absolute; inset: -9px; border-radius: 50%; border: 1px solid var(--accent); animation: ping 2.4s ease-out infinite; }
+.hs em { position: absolute; left: 50%; bottom: calc(100% + 4px); transform: translate(-50%, 8px); white-space: nowrap; background: rgba(6,11,21,.94); border: 1px solid rgba(242,138,43,.5); padding: 8px 14px; font-style: normal; font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--ink); opacity: 0; pointer-events: none; transition: opacity .3s, transform .4s var(--ease); }
+.hs.below em { bottom: auto; top: calc(100% + 4px); transform: translate(-50%, -8px); }
+.hs:hover em, .hs:focus-visible em, .hs.open em { opacity: 1; transform: translate(-50%, 0); }
+.hs:hover span, .hs.open span { box-shadow: 0 0 0 7px rgba(242,138,43,.35); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .night img, .night, .hero .label, .hero h1, .hero .lead, .hero .row, .hero .facts, .preview img.on, details[open] p { animation: none; }
+  .hs span::after { animation: none; }
+  .js .reveal { transform: none; transition: opacity .4s; }
+  .night img, .gal img, .final .bg { translate: none; }
+}
 </style>
 
 </head>
 <body>
 <header class="full">
+  <i class="progress" aria-hidden="true"></i>
   <div class="bar">
     <a class="logo" href="#top" aria-label="MKTECH Automação Residencial">
       <svg width="38" height="38" viewBox="0 0 40 40" aria-hidden="true"><rect x=".75" y=".75" width="38.5" height="38.5" fill="none" stroke="#f28a2b" stroke-width="1.2"/><path d="M10 29V11l10 11 10-11v18" fill="none" stroke="#f28a2b" stroke-width="2" stroke-linejoin="miter"/></svg>
@@ -318,11 +410,20 @@ footer { border-top: 1px solid var(--line); }
   <section class="wrap">
     <p class="label">Automação na prática</p>
     <h2>Uma cena. Vários sistemas. <i>O ambiente pronto para o momento.</i></h2>
-    <div class="scenes">
-      <div class="cena"><span class="t">Ao chegar</span><h3>Cheguei</h3><p>A casa recebe você com os ambientes essenciais prontos.</p><ul><li>Iluminação ajustada</li><li>Climatização conforme a necessidade</li><li>Áudio opcional</li></ul></div>
-      <div class="cena"><span class="t">Para desacelerar</span><h3>Relaxar</h3><p>Luz, temperatura e som criam um clima mais confortável com um toque.</p><ul><li>Luz indireta</li><li>Temperatura agradável</li><li>Playlist ou silêncio</li></ul></div>
-      <div class="cena"><span class="t">Hora do filme</span><h3>Cinema</h3><p>Os sistemas se coordenam para preparar a sessão.</p><ul><li>Cortinas fechadas</li><li>Iluminação reduzida</li><li>Áudio e vídeo ligados</li></ul></div>
-      <div class="cena"><span class="t">Fim do dia</span><h3>Boa noite</h3><p>A rotina noturna fica simples e a casa assume o que era repetitivo.</p><ul><li>Luzes desligadas</li><li>Cortinas fechadas</li><li>Portas e alarme conferidos</li></ul></div>
+    <div class="scenes-wrap" id="cenas">
+      <div class="scn-list">
+        <div class="scn on" role="button" tabindex="0" data-i="0" aria-pressed="true"><i class="pbar"></i><span class="t">Ao chegar</span><h3>Cheguei</h3><div class="more"><div><p>A casa recebe você com os ambientes essenciais prontos.</p><ul><li>Iluminação ajustada</li><li>Climatização conforme a necessidade</li><li>Áudio opcional</li></ul></div></div></div>
+        <div class="scn" role="button" tabindex="0" data-i="1" aria-pressed="false"><i class="pbar"></i><span class="t">Para desacelerar</span><h3>Relaxar</h3><div class="more"><div><p>Luz, temperatura e som criam um clima mais confortável com um toque.</p><ul><li>Luz indireta</li><li>Temperatura agradável</li><li>Playlist ou silêncio</li></ul></div></div></div>
+        <div class="scn" role="button" tabindex="0" data-i="2" aria-pressed="false"><i class="pbar"></i><span class="t">Hora do filme</span><h3>Cinema</h3><div class="more"><div><p>Os sistemas se coordenam para preparar a sessão.</p><ul><li>Cortinas fechadas</li><li>Iluminação reduzida</li><li>Áudio e vídeo ligados</li></ul></div></div></div>
+        <div class="scn" role="button" tabindex="0" data-i="3" aria-pressed="false"><i class="pbar"></i><span class="t">Fim do dia</span><h3>Boa noite</h3><div class="more"><div><p>A rotina noturna fica simples e a casa assume o que era repetitivo.</p><ul><li>Luzes desligadas</li><li>Cortinas fechadas</li><li>Portas e alarme conferidos</li></ul></div></div></div>
+      </div>
+      <figure class="preview">
+        <img class="on" src="img/hero.jpg" alt="Casa iluminada na chegada" style="object-position:50% 45%">
+        <img src="img/integracao.jpg" alt="Sala com luz indireta para relaxar" style="object-position:50% 50%">
+        <img src="img/entretenimento.jpg" alt="Home theater pronto para o filme" style="object-position:50% 50%">
+        <img src="img/conforto.jpg" alt="Suíte pronta para dormir" style="object-position:75% 55%">
+        <figcaption><b>Cena</b> &nbsp; <span id="pv-name">Cheguei</span></figcaption>
+      </figure>
     </div>
     <div class="after">
       <p>Quer saber quais cenas fazem sentido para a sua rotina?</p>
@@ -359,6 +460,11 @@ footer { border-top: 1px solid var(--line); }
     <div class="gal">
       <figure>
         <img src="img/integracao.jpg" alt="Sala integrada com pé-direito duplo e iluminação indireta" loading="eager" decoding="async" style="object-position:50% 60%">
+        <span class="hint">Explore os pontos</span>
+        <button class="hs below" type="button" style="left:31%;top:7%" aria-label="Climatização embutida"><span></span><em>Climatização embutida</em></button>
+        <button class="hs" type="button" style="left:27%;top:48%" aria-label="Cortinas motorizadas"><span></span><em>Cortinas motorizadas</em></button>
+        <button class="hs" type="button" style="left:36.5%;top:43.5%" aria-label="Áudio embutido"><span></span><em>Áudio embutido</em></button>
+        <button class="hs" type="button" style="left:79%;top:42%" aria-label="Iluminação linear"><span></span><em>Iluminação linear</em></button>
         <figcaption><b>Integração</b><span>Sistemas coordenados em uma única experiência</span></figcaption>
       </figure>
       <figure>
@@ -490,5 +596,113 @@ document.querySelectorAll("[data-wa]").forEach(function (a) {
 });
 </script>
 
+<script>
+(function () {
+  var d = document, de = d.documentElement;
+  var rm = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function $(s, c) { return Array.prototype.slice.call((c || d).querySelectorAll(s)); }
+
+  /* revelar ao rolar */
+  var groups = ["section .label", "section h2", "section .lead", ".stage > div", ".big", ".pts div", ".sols article", ".base > div",
+    ".gal figure", ".steps li", ".why li", ".arq li", ".faq details", ".after", ".scenes-wrap", ".note",
+    ".final-in > *", ".foot > *"];
+  var seen = [];
+  groups.forEach(function (sel) {
+    $(sel).forEach(function (el) {
+      if (seen.indexOf(el) > -1 || el.closest(".hero")) return;
+      seen.push(el);
+      var i = Array.prototype.indexOf.call(el.parentNode.children, el);
+      el.classList.add("reveal");
+      el.style.setProperty("--d", Math.min(i, 5) * 0.09 + "s");
+    });
+  });
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+    }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
+    seen.forEach(function (el) { io.observe(el); });
+  } else { seen.forEach(function (el) { el.classList.add("in"); }); }
+  setTimeout(function () { seen.forEach(function (el) { if (el.getBoundingClientRect().top < innerHeight) el.classList.add("in"); }); }, 2500);
+
+  /* scroll: progresso, header, parallax */
+  var header = $("header")[0], prog = $(".progress")[0], night = $(".night img")[0], bg = $(".final .bg")[0], galImgs = $(".gal figure");
+  var ticking = false;
+  function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+  function frame() {
+    ticking = false;
+    var y = window.scrollY, max = de.scrollHeight - innerHeight;
+    if (prog) prog.style.setProperty("--p", max > 0 ? clamp(y / max, 0, 1) : 0);
+    if (header) header.classList.toggle("scrolled", y > 40);
+    if (rm) return;
+    if (night) night.style.setProperty("--py", clamp(y * 0.02, 0, 6) + "%");
+    var vh = innerHeight;
+    galImgs.forEach(function (f) {
+      var im = f.querySelector("img"); if (!im) return;
+      var r = f.getBoundingClientRect(); if (r.bottom < -100 || r.top > vh + 100) return;
+      im.style.setProperty("--py", clamp(((r.top + r.height / 2) - vh / 2) / vh * -9, -5, 5) + "%");
+    });
+    if (bg) { var r2 = bg.parentNode.getBoundingClientRect(); bg.style.setProperty("--py", clamp(((r2.top + r2.height / 2) - vh / 2) / vh * -10, -8, 8) + "%"); }
+  }
+  function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(frame); } }
+  addEventListener("scroll", onScroll, { passive: true }); addEventListener("resize", onScroll); frame();
+
+  /* menu ativo */
+  var links = $("header nav a.l");
+  if ("IntersectionObserver" in window) {
+    var so = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        links.forEach(function (a) { a.classList.toggle("on", a.getAttribute("href") === "#" + e.target.id); });
+      });
+    }, { rootMargin: "-40% 0px -55% 0px" });
+    ["experiencias", "solucoes", "como-funciona", "arquitetos", "duvidas"].forEach(function (id) { var s = d.getElementById(id); if (s) so.observe(s); });
+  }
+
+  /* brilho que segue o mouse */
+  $(".stage > div, .sols article").forEach(function (el) {
+    el.addEventListener("pointermove", function (e) {
+      var r = el.getBoundingClientRect();
+      el.style.setProperty("--mx", (e.clientX - r.left) + "px");
+      el.style.setProperty("--my", (e.clientY - r.top) + "px");
+    });
+  });
+
+  /* cenas */
+  var wrap = d.getElementById("cenas");
+  if (wrap) {
+    var items = $(".scn", wrap), pics = $(".preview img", wrap), name = d.getElementById("pv-name"), cur = 0, timer = null;
+    function select(i, manual) {
+      cur = i;
+      items.forEach(function (it, k) { var on = k === i; it.classList.toggle("on", on); it.setAttribute("aria-pressed", on); });
+      pics.forEach(function (p, k) { p.classList.toggle("on", k === i); });
+      if (name) name.textContent = items[i].querySelector("h3").textContent;
+      wrap.classList.remove("auto");
+      if (manual) { stop(); wrap.classList.add("manual"); }
+      else { void wrap.offsetWidth; wrap.classList.remove("manual"); wrap.classList.add("auto"); }
+    }
+    function stop() { clearInterval(timer); timer = null; }
+    function start() { if (rm || timer || wrap.classList.contains("manual")) return; wrap.classList.add("auto"); timer = setInterval(function () { select((cur + 1) % items.length, false); }, 6000); }
+    items.forEach(function (it, k) {
+      it.addEventListener("click", function () { select(k, true); });
+      it.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); select(k, true); } });
+    });
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (es) { es[0].isIntersecting ? start() : stop(); }, { threshold: 0.35 }).observe(wrap);
+    } else { start(); }
+  }
+
+  /* hotspots */
+  var hs = $(".hs");
+  hs.forEach(function (b) {
+    b.addEventListener("click", function (e) {
+      e.stopPropagation();
+      var was = b.classList.contains("open");
+      hs.forEach(function (o) { o.classList.remove("open"); });
+      if (!was) b.classList.add("open");
+    });
+  });
+  d.addEventListener("click", function () { hs.forEach(function (o) { o.classList.remove("open"); }); });
+})();
+</script>
 </body>
 </html>
