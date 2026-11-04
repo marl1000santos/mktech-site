@@ -242,12 +242,35 @@
         }
         .foot-wrap footer { border-top: 0; background: transparent; }
 
+        .card { overflow: hidden; }
+        .photo {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            object-fit: cover;
+        }
+        .hero-photo { aspect-ratio: 4 / 5; max-height: 560px; object-position: 50% 45%; }
+        .wide-photo { aspect-ratio: 3 / 2; }
+        .card .thumb {
+            display: block;
+            width: calc(100% + 48px);
+            max-width: none;
+            height: auto;
+            margin: -24px -24px 20px;
+            aspect-ratio: 3 / 2;
+            object-fit: cover;
+            border-bottom: 1px solid var(--border-color);
+        }
+
         a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
         /* telas largas: mesma composição, centralizada e com cartões lado a lado */
         @media (min-width: 900px) {
             header { padding: 24px 20px; }
-            .hero { padding: 90px 20px 50px; }
+            .hero { padding: 70px 20px 50px; display: grid; grid-template-columns: 1.1fr .9fr; gap: 60px; align-items: center; }
+            .hero-photo { max-height: 640px; }
             h1 { font-size: 64px; max-width: 14ch; }
             .hero p { font-size: 18px; max-width: 52ch; }
             .btn-primary, .btn-outline { width: auto; min-width: 240px; margin-right: 14px; }
@@ -275,12 +298,15 @@
 
         <!-- Hero Section -->
         <section class="hero">
+            <div class="hero-text">
             <div class="badge">Automação Residencial - Alto Padrão</div>
             <h1>Tecnologia que <strong>guia o seu lar.</strong></h1>
             <p>Automação residencial inteligente que transforma conforto, segurança e controle em uma experiência única.</p>
 
             <a href="#processo" class="btn-primary">Nosso Processo &rarr;</a>
             <a href="https://wa.me/5534984094453?text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20MKTECH%20e%20gostaria%20de%20falar%20com%20um%20especialista%20em%20automa%C3%A7%C3%A3o%20residencial." class="btn-outline" target="_blank" rel="noopener">Falar com Especialista</a>
+            </div>
+            <img class="photo hero-photo" src="img/hero.jpg" width="1400" height="1738" alt="Residência contemporânea à noite, refletida na piscina, com iluminação quente integrada">
         </section>
 
         <!-- Metrics -->
@@ -304,6 +330,7 @@
             <div class="badge">Experiência Imersiva</div>
             <h2 class="section-title">Uma casa que <span>responde</span> aos seus comandos.</h2>
             <p class="section-text">Iluminação, climatização, cortinas, áudio e segurança conectados em uma única experiência. Cenas, aplicativo e comandos na parede em sintonia com o seu ritmo de vida.</p>
+            <img class="photo wide-photo" src="img/integracao.jpg" width="1800" height="1208" loading="lazy" alt="Sala integrada com pé-direito duplo, cortinas e iluminação indireta">
         </section>
 
         <!-- Features Cards -->
@@ -314,14 +341,17 @@
 
             <div class="cards">
                 <div class="card">
+                    <img class="thumb" src="img/interfaces.jpg" width="1400" height="939" loading="lazy" alt="Painel de comando em vidro preto com indicadores luminosos">
                     <h3>Tecnologia Própria</h3>
                     <p>Equipamentos desenvolvidos pela MKTECH, com controle de qualidade e evolução contínua.</p>
                 </div>
                 <div class="card">
+                    <img class="thumb" src="img/iluminacao.jpg" width="1400" height="939" loading="lazy" alt="Cozinha com iluminação linear integrada à marcenaria">
                     <h3>Projetos Sob Medida</h3>
                     <p>Cada residência é projetada do zero, respeitando a arquitetura e a rotina de quem mora.</p>
                 </div>
                 <div class="card">
+                    <img class="thumb" src="img/conforto.jpg" width="1800" height="1005" loading="lazy" alt="Suíte com cortinas e iluminação indireta atrás da cabeceira">
                     <h3>Suporte Completo</h3>
                     <p>Instalação profissional, treinamento e acompanhamento depois que a casa está pronta.</p>
                 </div>
